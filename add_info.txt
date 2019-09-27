@@ -1,0 +1,1 @@
+source C:/Users/GZhang/AppData/Local/Programs/Python/Python36/Scripts/virtualenvwrapper.sh
