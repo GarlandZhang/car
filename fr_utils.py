@@ -172,15 +172,18 @@ def load_weights():
     return weights_dict
 
 def format_properly(image_path):
-  # resize to be enconded
-  image = cv2.imread(image_path)
-  height, width, channels = image.shape
-  if (height != 96 or width != 96):
-    resized_image = cv2.resize(image, (96, 96))
-    output_path = image_path + "_formatted.jpg"
-    cv2.imwrite(output_path, resized_image)
-    image_path = output_path
-  return image_path
+    if isinstance(image_path, str):
+        # resize to be enconded
+        image = cv2.imread(image_path)
+    else:
+        image = image_path
+    height, width, channels = image.shape
+    if (height != 96 or width != 96):
+        resized_image = cv2.resize(image, (96, 96))
+        # output_path = image_path + "_formatted.jpg"
+        # cv2.imwrite(output_path, resized_image)
+        image = resized_image
+    return image
 
 
 def load_dataset():
@@ -200,8 +203,11 @@ def load_dataset():
     return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
 
 def img_to_encoding(image_path, model):
-    image_path = format_properly(image_path)
-    img1 = cv2.imread(image_path, 1)
+    if isinstance(image_path, str):
+        img1 = cv2.imread(image_path, 1)
+    else:
+        img1 = image_path
+    img1 = format_properly(img1)
     img = img1[...,::-1]
     img = np.around(np.transpose(img, (2,0,1))/255.0, decimals=12)
     x_train = np.array([img])
