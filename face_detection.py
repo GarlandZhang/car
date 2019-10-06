@@ -5,6 +5,8 @@ import numpy as np
 
 def get_face(image_path, model):
   (boxes, confidences, image) = get_boxes(image_path, model)
+  if len(boxes) == 0:
+    return None
   box = boxes[0]
   minx, miny, maxx, maxy = box
   face = image[int(miny):int(maxy), int(minx):int(maxx)]
