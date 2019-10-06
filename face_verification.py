@@ -43,7 +43,6 @@ def verify(image_path, identity, database, model):
 
 def who_is_it(image_path, database, model):
   image_path = format_properly(image_path)
-
   encoding = img_to_encoding(image_path, model)
   min_dist = 100
   for (name, db_encoding) in database.items():
@@ -52,9 +51,9 @@ def who_is_it(image_path, database, model):
       min_dist = distance
       identity = name
 
-  if min_dist > 1:
-    print("Not in the database.")
-  else:
+  if min_dist < 1:
     print("It's " + str(identity) + ", the distance is " + str(min_dist))
+  else:
+    print("Not in the database.")
   
   return min_dist, identity
