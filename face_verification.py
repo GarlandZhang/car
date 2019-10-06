@@ -43,6 +43,7 @@ def verify(image_path, identity, database, model):
 
 def who_is_it(image_path, database, model):
   image_path = format_properly(image_path)
+  
   encoding = img_to_encoding(image_path, model)
   min_dist = 100
   for (name, db_encoding) in database.items():
