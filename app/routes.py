@@ -35,7 +35,7 @@ def add_person_image():
         return redirect('/')
       image = to_image(file)
       image = get_face(image, detection_model)
-      if not image:
+      if image == None:
         return jsonify({ "error": "No face found." })
       database[name] = img_to_encoding(image, model)
       result = {
@@ -51,7 +51,7 @@ def predict():
       file = request.files['file']
       image = to_image(file)
       image = get_face(image, detection_model)
-      if not image:
+      if image == None:
         return jsonify({ "error": "No face found." })
       min_dist, identity = who_is_it(image, database, model)
       result = {
