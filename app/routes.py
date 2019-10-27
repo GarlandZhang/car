@@ -51,7 +51,7 @@ def add_person_image():
       if not db.session.query(FaceEncoding).filter(FaceEncoding.name == name).count():
         encoding = img_to_encoding(image, model)
         payload = { "encoding": encoding.tolist() }
-        print("encoding created: {}".format(payload))
+        print("payload created: {}".format(payload))
         db.session.add(FaceEncoding(name=name, encoding=json.dumps(payload)))
         db.session.commit()
         result = {
